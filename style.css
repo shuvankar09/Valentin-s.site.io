@@ -1,95 +1,313 @@
-* {
-  box-sizing: border-box;
-}
-
+/* --- General Reset --- */
 body {
-  margin: 0;
-  min-height: 100vh;
-  font-family: 'Press Start 2P', cursive;
-  background: #eac6f0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffdae0;
+    background-image: url("heart-bg.jpg");
+    background-size: cover;
+    background-position: center;
+    font-family: "Pixelify Sans", sans-serif;
+    overflow: hidden; /* Stops scrollbars when elements fly out */
 }
 
-.screen {
-  display: none;
-  width: 100%;
-  text-align: center;
+/* --- PAGE 1: Envelope --- */
+#envelope-container {
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+#envelope-container:hover { transform: scale(1.05); }
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }
 
-.screen.active {
-  display: block;
+#envelope {
+    width: 200px;
+    animation: pulse 1.5s infinite;
 }
 
-.card {
-  background: white;
-  border: 4px solid black;
-  padding: 20px;
-  max-width: 340px;
-  margin: auto;
-  box-shadow: 6px 6px 0 black;
+#envelope-container p {
+    font-size: 24px;
+    color: #d81b60;
+    margin-top: 10px;
+}
+
+/* --- PAGE 2: The Letter Window --- */
+#letter-container {
+    display: none;
+    position: fixed;
+    inset: 0;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.letter-window {
+    width: 90vw;
+    max-width: 500px;
+    padding-top: 120px; 
+    padding-bottom: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+
+    background-image: url("window.png"); /* Pixel Art Window Frame */
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px; 
+
+    transform: scale(0.5);
+    opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.6s ease;
+}
+
+.letter-window.open {
+    transform: scale(1);
+    opacity: 1;
 }
 
 h1 {
-  font-size: 14px;
-  margin-bottom: 15px;
+    font-size: 28px;
+    color: #c2185b;
+    margin: 0;
 }
 
-p {
-  font-size: 10px;
-  line-height: 1.6;
-}
+.cat { width: 140px; height: auto; }
 
-button {
-  font-family: 'Press Start 2P', cursive;
-  font-size: 10px;
-  padding: 10px 14px;
-  border: 3px solid black;
-  background: white;
-  cursor: pointer;
-  box-shadow: 4px 4px 0 black;
-}
-
-button:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 black;
-}
-
+/* Buttons */
 .buttons {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    margin-top: 10px;
 }
 
-.yes {
-  background: #b6ffb6;
+.btn {
+    font-family: "Pixelify Sans", sans-serif;
+    font-size: 18px;
+    padding: 10px 25px;
+    border: 3px solid #000;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 4px 4px 0px #000;
+    transition: transform 0.1s;
+    font-weight: bold;
+    min-width: 100px;
+    background-color: white;
 }
 
-.no {
-  background: #ffb6b6;
-  position: relative;
+.btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px #000;
 }
 
-/* 💖 Pixel Hearts */
-.pixel-heart {
-  position: absolute;
-  bottom: -20px;
-  font-size: 16px;
-  animation: floatUp 4s linear forwards;
+.yes-btn { background-color: #a5d6a7; color: #1b5e20; }
+.no-btn { background-color: #ef9a9a; color: #b71c1c; }
+
+
+/* --- PAGE 3: Success Ticket --- */
+#success-container {
+    display: none;
+    position: fixed;
+    inset: 0;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+    background-color: rgba(0,0,0,0.5);
+    animation: popIn 0.6s ease;
 }
 
-@keyframes floatUp {
-  0% {
-    transform: translateY(0);
-    opacity: 0;
-  }
-  20% {
+.ticket {
+    background-color: white;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    text-align: center;
+    border: 4px solid #000;
+}
+
+.ticket-header {
+    background-color: #f06292;
+    padding: 20px;
+    color: white;
+    border-bottom: 4px solid #000;
+}
+
+.ticket-header h2 { margin: 0; font-size: 28px; text-shadow: 2px 2px 0 #000; }
+
+.ticket-body { padding: 20px; background-color: #fce4ec; }
+
+.memory-photo {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border: 3px solid #000;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    background-color: #fff;
+}
+
+.date-details {
+    background-color: white;
+    border: 2px dashed #f06292;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    text-align: left;
+}
+.date-details p { margin: 5px 0; font-size: 18px; }
+
+.ticket-footer {
+    padding: 15px;
+    background-color: #f8bbd0;
+    font-weight: bold;
+    font-size: 20px;
+    border-top: 4px solid #000;
+}
+
+/* Adventure Button (Hidden Initially) */
+.adventure-btn {
+    margin-top: 15px;
+    background-color: #ffca28;
+    color: #5d4037;
+    border: 3px solid #000;
+    padding: 10px 20px;
+    font-family: "Pixelify Sans", sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 #000;
+    
+    opacity: 0; 
+    transform: scale(0.5);
+    pointer-events: none;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.adventure-btn.show {
     opacity: 1;
-  }
-  100% {
-    transform: translateY(-120vh);
+    transform: scale(1);
+    pointer-events: auto;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+    40% {transform: translateY(-5px);}
+    60% {transform: translateY(-3px);}
+}
+
+/* --- PAGE 4: Adventure Screen --- */
+#adventure-container {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: #e1bee7;
+    justify-content: center;
+    align-items: center;
+    z-index: 30;
+    text-align: center;
+}
+
+.adventure-box {
+    background-color: white;
+    padding: 30px;
+    border-radius: 20px;
+    border: 4px solid #000;
+    box-shadow: 10px 10px 0 rgba(0,0,0,0.2);
+    max-width: 90vw;
+    animation: slideUp 0.8s ease;
+}
+
+/* Final Photo Styling */
+.final-photo {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid #ff1744;
+    box-shadow: 0 0 15px rgba(255, 23, 68, 0.5);
+    margin-bottom: 15px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.adventure-details {
+    background-color: #fff9c4;
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px dashed #fbc02d;
+    margin-bottom: 20px;
+    text-align: left;
+}
+.adventure-details p { margin: 5px 0; font-size: 18px; }
+
+/* The Love Sign */
+.love-sign {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 35px;
+    font-weight: bold;
+    color: #ff1744;
+    text-shadow: 2px 2px 0px #000;
     opacity: 0;
-  }
+    transform: scale(0.5);
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.love-sign.show {
+    opacity: 1;
+    transform: scale(1);
+    animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+    0% { transform: scale(1); text-shadow: 2px 2px 0px #000; }
+    50% { transform: scale(1.1); text-shadow: 0 0 15px #ff1744, 2px 2px 0px #000; }
+    100% { transform: scale(1); text-shadow: 2px 2px 0px #000; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100vh); }
+    to { transform: translateY(0); }
+}
+@keyframes popIn {
+    0% { transform: scale(0); opacity: 0; }
+    80% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); }
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 600px) {
+    .letter-window {
+        width: 85vw;
+        padding-top: 80px;
+        padding-left: 20px; padding-right: 20px; padding-bottom: 20px;
+        gap: 10px;
+    }
+    h1 { font-size: 22px; }
+    .cat { width: 100px; }
+    .buttons { gap: 15px; }
+    .btn { font-size: 16px; padding: 8px 15px; min-width: 80px; }
+    .final-photo { width: 120px; height: 120px; }
 }
