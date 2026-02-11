@@ -55,11 +55,28 @@ body {
     gap: 20px;
 }
 
+/* --- BIGGER TITLE FIX --- */
 h1 {
-    font-size: 50px;
-    color: #880e4f; /* Dark Pink Text */
+    /* Changed from 34px to 50px */
+    font-size: 50px; 
+    
+    color: #880e4f; 
     margin: 0;
-    text-shadow: 2px 2px 0px #f8bbd0;
+    
+    /* Added a slightly bigger shadow to match the size */
+    text-shadow: 3px 3px 0px #f8bbd0;
+    
+    /* Optional: detailed spacing */
+    line-height: 1.2;
+    margin-bottom: 10px;
+}
+
+/* --- MOBILE ADJUSTMENT --- */
+/* Add this to the bottom of your CSS if you haven't already */
+@media (max-width: 1000px) {
+    h1 {
+        font-size: 30px; /* Keep it readable on phones */
+    }
 }
 
 /* Buttons (Candy Style) */
