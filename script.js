@@ -9,11 +9,7 @@ const noBtn = document.querySelector(".no-btn");
 const yesBtn = document.querySelector(".yes-btn");
 const adventureBtn = document.getElementById("adventure-btn");
 
-const title = document.getElementById("letter-title");
-const catImg = document.getElementById("letter-cat");
-const buttons = document.getElementById("letter-buttons");
-
-const music = document.getElementById("bg-music");
+const music = document.getElementById("my-song");
 const loveSign = document.getElementById("love-sign");
 
 // --- CONFIG ---
@@ -35,21 +31,37 @@ const messages = [
     "You're breaking my heart ;(",
 ];
 
-const MAX_HOVERS = 15; // Button runs away after 15 times
+const MAX_HOVERS = 15; 
 let hoverCount = 0;
 
+// --- VIBRATION HELPER ---
+// Pattern: [vibrate, pause, vibrate]
+function vibrate(pattern) {
+    // Check if the browser supports vibration (Android mostly)
+    if (navigator.vibrate) {
+        navigator.vibrate(pattern);
+    }
+}
+
 // --- 1. Open Envelope ---
-envelope.addEventListener("click", () => {
-    envelope.style.display = "none";
-    letterContainer.style.display = "flex";
-    setTimeout(() => {
-        letterWindow.classList.add("open");
-    }, 50);
-});
+if (envelope) {
+    envelope.addEventListener("click", () => {
+        vibrate(50); // Short buzz (50ms)
+        envelope.style.display = "none";
+        
+        if (letterContainer) {
+            letterContainer.style.display = "flex";
+            setTimeout(() => {
+                if (letterWindow) letterWindow.classList.add("open");
+            }, 50);
+        }
+    });
+}
 
 // --- 2. Move "No" Button Logic ---
 function moveNoButton() {
-    // Check if limit reached
+    vibrate(30); // Very short buzz when it runs away
+    
     if (hoverCount >= MAX_HOVERS) {
         noBtn.style.position = "fixed";
         noBtn.style.transition = "transform 0.8s ease-in, opacity 0.8s ease-in";
@@ -59,53 +71,52 @@ function moveNoButton() {
         return;
     }
 
-    // Move logic (Responsive)
-    const range = window.innerWidth < 600 ? 50 : 100; // Smaller jumps on mobile
+    const range = window.innerWidth < 600 ? 50 : 100;
     const x = Math.random() * (range * 2) - range; 
     const y = Math.random() * (range * 2) - range; 
     
     noBtn.style.transform = `translate(${x}px, ${y}px)`;
-
-    // Change text (Looping)
     noBtn.innerText = messages[hoverCount % messages.length];
-
     hoverCount++;
 }
 
-// Attach Event Listeners
-noBtn.addEventListener("mouseover", moveNoButton);
-noBtn.addEventListener("click", (e) => {
-    e.preventDefault(); // Stop click on mobile
-    moveNoButton();
-});
+if (noBtn) {
+    noBtn.addEventListener("mouseover", moveNoButton);
+    noBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        moveNoButton();
+    });
+}
 
 // --- 3. Yes Button Logic ---
-yesBtn.addEventListener("click", () => {
-    // Hide Letter
-    letterContainer.style.display = "none";
-    
-    // Show Ticket
-    successContainer.style.display = "flex";
-    
-    // DELAY: Show Adventure Button after 2 seconds
-    setTimeout(() => {
-        adventureBtn.classList.add("show");
-    }, 2000);
-});
+if (yesBtn) {
+    yesBtn.addEventListener("click", () => {
+        vibrate([100, 50, 100]); // "Heartbeat" double buzz (Buzz-pause-Buzz)
+        
+        letterContainer.style.display = "none";
+        successContainer.style.display = "flex";
+        
+        setTimeout(() => {
+            if (adventureBtn) adventureBtn.classList.add("show");
+        }, 2000);
+    });
+}
 
 // --- 4. Final Adventure Button Logic ---
-adventureBtn.addEventListener("click", () => {
-    // Switch Pages
-    successContainer.style.display = "none";
-    adventureContainer.style.display = "flex";
+if (adventureBtn) {
+    adventureBtn.addEventListener("click", () => {
+        vibrate(200); // Long single buzz
+        
+        successContainer.style.display = "none";
+        adventureContainer.style.display = "flex";
 
-    // Play Music
-    music.play().catch(error => {
-        console.log("Autoplay prevented:", error);
+        if (music) {
+            music.play();
+            music.volume = 0.5;
+        }
+        
+        setTimeout(() => {
+            if (loveSign) loveSign.classList.add("show");
+        }, 1000);
     });
-    
-    // Show Love Sign after 1 second
-    setTimeout(() => {
-        loveSign.classList.add("show");
-    }, 1000);
-});
+}
