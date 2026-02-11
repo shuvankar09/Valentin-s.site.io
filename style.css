@@ -1,15 +1,25 @@
 /* --- General Reset --- */
+/* --- General Reset --- */
 body {
     margin: 0;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #e1bee7; /* Light Purple Background from your screenshot */
-    font-family: 'Courier New', Courier, monospace; /* Or your pixel font */
+    
+    /* 1. Use the pink color as a fallback */
+    background-color: #ffdae0;
+    
+    /* 2. ADD THIS BACK: The heart background image */
+    background-image: url("heart-bg.jpg");
+    
+    /* 3. Make sure it covers the screen nicely */
+    background-size: cover;
+    background-position: center;
+    
+    font-family: 'Courier New', Courier, monospace; 
     overflow: hidden; 
 }
-
 /* --- PAGE 1: Envelope --- */
 #envelope-container {
     text-align: center;
