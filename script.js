@@ -26,7 +26,7 @@ finalMusic.loop = true;
 finalMusic.volume = 0.5;
 
 // --- CONFIG ---
-const messages = ["Are you sure?", "Really sure??", "Think again!", "Last chance!", "Surely not?", "You might regret this!", "Give it another thought!", "Are you absolutely certain?", "This could be a mistake!", "Have a heart!", "Don't be so cold!", "Change of heart?", "Wouldn't you reconsider?", "Is that your final answer?", "You're breaking my heart ;("];
+const messages = ["Are you sure?", "Really XD sure??", "Think XO again!", "Last chance!", "Surely not?", "You might regret this!", "Give it another thought!", "Are you absolutely certain?", "This could be a mistake!", "Have a heart!", "Don't be so cold!", "Change of heart?", "Wouldn't you reconsider?", "Is that your final answer?", "You're breaking my heart ;("];
 const MAX_HOVERS = 15; 
 let hoverCount = 0;
 
@@ -99,3 +99,28 @@ if (adventureBtn) {
         setTimeout(() => { if (loveSign) loveSign.classList.add("show"); }, 1000);
     });
 }
+// --- FLOATING HEARTS FUNCTION ---
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    
+    // Random emojis for variety
+    const hearts = ["💖", "❤️", "🥰", "😍", "💕"];
+    heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+    
+    // Random position across the screen
+    heart.style.left = Math.random() * 100 + "vw";
+    
+    // Random speed (between 3 and 5 seconds)
+    heart.style.animationDuration = Math.random() * 2 + 3 + "s"; 
+    
+    document.body.appendChild(heart);
+    
+    // Clean up: Remove heart after 5 seconds so the browser doesn't get slow
+    setTimeout(() => {
+        heart.remove();
+    }, 5000);
+}
+
+// Start the hearts popping up every 300 milliseconds!
+setInterval(createHeart, 300);
