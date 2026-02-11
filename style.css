@@ -211,3 +211,22 @@ h1 {
     .btn { font-size: 16px; padding: 8px 16px; }
     body { background-size: 150px; } /* Smaller pattern on phone */
 }
+/* --- FLOATING HEARTS ANIMATION --- */
+.heart {
+    position: fixed; 
+    top: 100vh; 
+    transform: translateY(0);
+    font-size: 25px; 
+    
+    /* This keyframes name must match the @keyframes below */
+    animation: fly 4s linear forwards; 
+    
+    /* CHANGE THIS FROM 5 TO 100 */
+    z-index: 100; 
+    
+    pointer-events: none; 
+}
+
+@keyframes fly {
+    to { transform: translateY(-110vh); }
+}
