@@ -103,16 +103,32 @@ if (yesBtn) {
 }
 
 // --- 4. Final Adventure Button Logic ---
+// --- 4. Final Adventure Button Logic ---
 if (adventureBtn) {
     adventureBtn.addEventListener("click", () => {
-        vibrate(200); // Long single buzz
+        vibrate(200); 
         
         successContainer.style.display = "none";
         adventureContainer.style.display = "flex";
 
+        // --- DEBUG MUSIC ---
         if (music) {
-            music.play();
-            music.volume = 0.5;
+            console.log("Found music element. Attempting to play...");
+            var playPromise = music.play();
+
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    console.log("Audio started!");
+                    music.volume = 0.5;
+                })
+                .catch(error => {
+                    console.log("Playback failed: " + error);
+                    alert("Click anywhere to start music (Browser blocked it!)");
+                });
+            }
+        } else {
+            console.log("ERROR: Could not find <audio> element with id 'my-song'");
+            alert("Music Error: Check your HTML ID!");
         }
         
         setTimeout(() => {
