@@ -26,7 +26,7 @@ finalMusic.loop = true;
 finalMusic.volume = 0.5;
 
 // --- CONFIG ---
-const messages = ["Are you sure?", "Really XD sure??", "Think XO again!", "Last chance!", "Surely not?", "You might regret this!", "Give it another thought!", "Are you absolutely certain?", "This could be a mistake!", "Have a heart!", "Don't be so cold!", "Change of heart?", "Wouldn't you reconsider?", "Is that your final answer?", "You're breaking my heart ;("];
+const messages = ["Are you sure?", "Really রাজশ্রী sure??", "Think again রাজশ্রী!", "Last chance মিষ্টি রাজশ্রী!", "Surely not মিষ্টি মেয়ে?", "You might regret this!", "একবার চেষ্টা করো!", "আলতো করে চেষ্টা করো একবার?", "Uff OG cutie!", "Have a heart cutie🥺!", "Don't be so cold বাচ্চা মেয়ে!", "এবার তো yes বলে দাও 😬", "এমন করতে নেই রাজশ্রী😓", "তুমি মিষ্টি বাচ্চা না🌻", "শেষবার, হ্যাঁ বলে দাও রাজশ্রী❤️"];
 const MAX_HOVERS = 15; 
 let hoverCount = 0;
 
